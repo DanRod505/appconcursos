@@ -14,20 +14,23 @@
   <header class="topbar">
     <div class="topbar-inner">
       <a class="brand" href="#trilha" aria-label="Rumo, trilha de estudos"><span class="brand-mark" data-icon="compass"></span>Rumo<span class="brand-dot">.</span></a>
-      <nav class="nav" aria-label="Seções principais">
-        <a href="#trilha" data-page="trilha"><span data-icon="route"></span>Trilha</a>
-        <a href="#revisao" data-page="revisao"><span data-icon="refresh"></span>Revisão</a>
-        <a href="#progresso" data-page="progresso"><span data-icon="chart"></span>Progresso</a>
-      </nav>
       <div class="appearance">
         <div class="style-switch" role="group" aria-label="Estilo visual">
           <button type="button" data-style-choice="glass" aria-label="Glassmorphism"><span data-icon="layers"></span>Vidro</button>
-          <button type="button" data-style-choice="neo" aria-label="Neomorfismo"><span data-icon="box"></span>Neomórfico</button>
+          <button type="button" data-style-choice="neo" aria-label="Neomorfismo"><span data-icon="box"></span>Neo</button>
         </div>
-        <button class="theme-switch" type="button" id="theme-toggle"></button>
+        <button class="icon-button" type="button" id="theme-toggle"></button>
+        <button class="icon-button" type="button" id="sound-toggle" aria-label="Efeitos sonoros"></button>
       </div>
     </div>
   </header>
-  <main id="screen" class="shell"></main>
+  <div class="app-layout">
+    <nav class="nav" aria-label="Seções principais">
+      <a href="#trilha" data-page="trilha"><span data-icon="route"></span>Matérias</a>
+      <a href="#revisao" data-page="revisao"><span data-icon="refresh"></span>Revisão</a>
+      <a href="#progresso" data-page="progresso"><span data-icon="chart"></span>Progresso</a>
+    </nav>
+    <main id="screen" class="shell"></main>
+  </div>
 </body>
 </html>

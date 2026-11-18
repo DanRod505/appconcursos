@@ -1,4 +1,4 @@
-export const lessons = [
+const portugueseLessons = [
   {
     id: 'essencial',
     title: 'O essencial da concordância',
@@ -79,6 +79,50 @@ export const lessons = [
   }
 ];
 
+export const subjects = [
+  {
+    id: 'portugues',
+    name: 'Português',
+    topic: 'Concordância verbal',
+    icon: 'book',
+    lessons: portugueseLessons
+  },
+  {
+    id: 'raciocinio-logico',
+    name: 'Raciocínio Lógico',
+    topic: 'Sequências numéricas',
+    icon: 'logic',
+    lessons: [
+      {
+        id: 'sequencias',
+        title: 'Encontre o padrão',
+        description: 'Descubra a regra e identifique o próximo termo.',
+        icon: 'logic',
+        questions: [
+          {
+            prompt: 'Qual é o próximo termo da sequência 4, 7, 10, 13, …?',
+            options: ['15', '16', '17', '19'],
+            answer: 1,
+            explanation: 'Cada termo é 3 unidades maior que o anterior. Somando 3 a 13, chegamos a 16.'
+          },
+          {
+            prompt: 'Qual número completa a sequência 2, 6, 18, 54, …?',
+            options: ['72', '108', '162', '216'],
+            answer: 2,
+            explanation: 'Cada termo é o triplo do anterior. O próximo é 54 × 3 = 162.'
+          },
+          {
+            prompt: 'As diferenças entre os termos crescem de 1 em 1. Qual é o próximo termo de 2, 4, 7, 11, …?',
+            options: ['14', '15', '16', '17'],
+            answer: 2,
+            explanation: 'As diferenças são +2, +3 e +4. A próxima é +5, então 11 + 5 = 16.'
+          }
+        ]
+      }
+    ]
+  }
+];
+
 export const icons = {
   compass: '<circle cx="12" cy="12" r="9"/><path d="m16 8-2.5 5.5L8 16l2.5-5.5L16 8Z"/>',
   route: '<circle cx="6" cy="18" r="2"/><path d="M8 18h6a4 4 0 0 0 0-8h-4a3 3 0 0 1 0-6h5"/><path d="m13 2 2 2-2 2"/>',
@@ -87,6 +131,9 @@ export const icons = {
   layers: '<path d="m12 3 9 5-9 5-9-5 9-5Zm-9 9 9 5 9-5M3 16l9 5 9-5"/>',
   box: '<rect x="4" y="4" width="16" height="16" rx="5"/><rect x="8" y="8" width="8" height="8" rx="2"/>',
   sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"/>',
+  volume: '<path d="m11 5-5 4H3v6h3l5 4V5Zm4 4a4 4 0 0 1 0 6m3-9a8 8 0 0 1 0 12"/>',
+  muted: '<path d="m11 5-5 4H3v6h3l5 4V5Zm5 5 5 5m0-5-5 5"/>',
+  logic: '<rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/><path d="M14 7h4a2 2 0 0 1 2 2v2M7 14v4a2 2 0 0 0 2 2h2"/>',
   moon: '<path d="M20.9 13.3A9 9 0 0 1 10.7 3.1 9 9 0 1 0 20.9 13.3Z"/>',
   book: '<path d="M12 6c-2-2-5-2-9-2v14c4 0 7 0 9 2 2-2 5-2 9-2V4c-4 0-7 0-9 2Zm0 0v14"/>',
   play: '<path d="m9 5 11 7-11 7V5Z" fill="currentColor" stroke="none"/>',
