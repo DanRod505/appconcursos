@@ -111,7 +111,7 @@ function track() {
       <h1 id="hero-title">Sua rotina de estudo</h1>
       <p>Escolha uma matéria e avance com lições curtas no estilo de concurso.</p>
     </div>
-    <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><img src="assets/mascote.webp" alt=""></div>
+    <div class="hero-art" aria-hidden="true"><div class="orbit orbit-one"></div><img src="assets/cerebro.webp" alt=""></div>
   </section>
   <div class="dashboard-main enter">
     <section aria-labelledby="subjects-title">
