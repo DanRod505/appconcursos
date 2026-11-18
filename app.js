@@ -1,4 +1,4 @@
-import { subjects, icons } from './content.js';
+import { subjects, icons } from './content.js?v=trilha-2';
 import { muteCues, playCue } from './audio.js';
 
 const lessons = subjects.flatMap(subject => subject.lessons.map(lesson => ({ ...lesson, subject })));
@@ -122,31 +122,55 @@ function track() {
   </div>`;
 }
 
+const trailConnector = `<svg class="trail-connector" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+  <path d="M0 0 C0 50 100 50 100 100" vector-effect="non-scaling-stroke"/>
+</svg>`;
+
 function subjectTrack(subject) {
-  const nextIndex = subject.lessons.findIndex(({ id }) => !state.completed.includes(id));
+  const count = completedCount(subject);
+  const total = subject.lessons.length;
+  const next = subject.lessons.find(({ id }) => !state.completed.includes(id));
   return `<div class="track-page enter">
     <a class="text-link back-link" href="#trilha">${icon('back')} Todas as matérias</a>
-    <div class="track-heading">
+    <div class="track-heading surface">
       <span class="small-icon">${icon(subject.icon)}</span>
-      <h1>${subject.name}</h1>
-      <p>${subject.topic} · ${completedCount(subject)} de ${subject.lessons.length} ${subject.lessons.length === 1 ? 'lição' : 'lições'}</p>
+      <div>
+        <h1>${subject.name}</h1>
+        <p>${subject.topic}</p>
+      </div>
+      <div class="track-progress">
+        <span>${count} de ${total} ${total === 1 ? 'lição' : 'lições'}</span>
+        ${progressBar(count, total, 'Lições concluídas nesta matéria')}
+      </div>
     </div>
-    <ol class="steps">
-      ${subject.lessons.map((lesson, index) => {
-        const complete = state.completed.includes(lesson.id);
-        const current = index === nextIndex;
-        const status = complete ? 'complete' : current ? 'current' : 'locked';
-        const label = complete ? 'Concluída' : current ? 'Próxima lição' : 'Bloqueada';
-        return `<li class="step ${status}">
-          <span class="step-node">${icon(complete ? 'check' : current ? lesson.icon : 'lock')}</span>
-          <button class="step-card surface" data-start="${lesson.id}" ${status === 'locked' ? 'disabled' : ''}>
-            <span class="step-details"><strong>${lesson.title}</strong><small>${lesson.description}</small></span>
-            <span class="step-status">${label}</span>
-            ${status === 'locked' ? '' : icon('chevron', 'step-arrow')}
-          </button>
-        </li>`;
-      }).join('')}
-    </ol>
+    <div class="track-layout">
+      <ol class="steps surface" role="list" aria-label="Caminho de lições">
+        ${subject.lessons.map(lesson => {
+          const complete = state.completed.includes(lesson.id);
+          const current = lesson === next;
+          const status = complete ? 'complete' : current ? 'current' : 'locked';
+          const label = complete ? 'Concluída' : current ? 'Próxima lição' : 'Bloqueada';
+          return `<li class="step ${status}" ${current ? 'aria-current="step"' : ''}>
+            ${trailConnector}
+            <button type="button" class="step-link" data-start="${lesson.id}" ${status === 'locked' ? 'disabled' : ''}>
+              <span class="step-node">${icon(status === 'locked' ? 'lock' : lesson.icon)}${complete ? `<span class="step-check">${icon('check')}</span>` : ''}</span>
+              <span class="step-details"><strong>${lesson.title}</strong><small>${label}</small></span>
+            </button>
+          </li>`;
+        }).join('')}
+        <li class="step trail-finish ${next ? 'locked' : 'complete'}">
+          <span class="step-link"><span class="step-node">${icon('flag')}</span><span class="step-details"><strong>Fim da trilha</strong></span></span>
+        </li>
+      </ol>
+      <aside class="track-next surface">
+        <span class="track-next-label">${icon(next ? 'play' : 'check')} ${next ? 'Próxima lição' : 'Trilha concluída'}</span>
+        <h2>${next ? next.title : subject.name}</h2>
+        <p>${next ? next.description : 'Você completou todas as lições desta matéria.'}</p>
+        ${next
+          ? `<button type="button" class="primary" data-start="${next.id}">Iniciar lição ${icon('arrow')}</button>`
+          : `<a class="primary" href="#trilha">Explorar matérias ${icon('arrow')}</a>`}
+      </aside>
+    </div>
   </div>`;
 }
 

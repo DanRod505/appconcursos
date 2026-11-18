@@ -180,22 +180,84 @@ h1 { font-size: clamp(2rem, 3.7vw, 3.2rem); font-weight: 800; letter-spacing: -.
 .subject-card .bar { margin: 14px 0 6px; height: 5px; }
 .subject-progress { font-size: .75rem; color: var(--muted); font-weight: 750; }
 .progress-title { margin: 24px 0 10px; }
-.track-page { max-width: 790px; margin: auto; }
-.track-heading { margin: 24px 0 22px; }
-.track-heading h1 { margin: 9px 0 5px; }
-.steps { display: grid; gap: 13px; padding: 0; margin: 0; list-style: none; }
-.step { position: relative; display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 15px; }
-.step:not(:last-child)::before { content: ""; position: absolute; width: 2px; left: 25px; top: 50%; height: calc(100% + 13px); background: var(--line); }
-.step-node { display: grid; place-items: center; z-index: 1; width: 48px; height: 48px; margin: auto; border-radius: 15px; color: var(--muted); background: var(--base); border: 1px solid var(--line); box-shadow: var(--small-shadow); }
-.step.current .step-node, .step.complete .step-node { color: #103a29; background: linear-gradient(145deg, #b5f7ce, #5bd9a0); box-shadow: 0 4px 18px #72e4b349, inset 0 1px #fff8; }
-.step-card { display: flex; align-items: center; gap: 12px; padding: 13px 15px; width: 100%; min-height: 74px; border-radius: 16px; text-align: left; }
-.step-card:not(:disabled):hover { border-color: var(--accent); }
-.step.current .step-card { border-color: color-mix(in srgb, var(--accent) 38%, transparent); }
-.step-details { display: grid; flex: 1; gap: 3px; }
+.track-page { max-width: 850px; margin: auto; }
+.track-heading {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 15px;
+  margin: 15px 0; padding: 17px 20px; border-radius: 18px;
+}
+.track-heading h1 { font-size: clamp(1.45rem, 3vw, 2rem); margin-bottom: 3px; }
+.track-heading p { font-size: .87rem; }
+.track-progress { min-width: 130px; margin-left: auto; font-size: .78rem; font-weight: 800; color: var(--muted); }
+.track-progress .bar { margin-top: 5px; height: 6px; }
+.track-layout { display: grid; grid-template-columns: minmax(0, 1fr) minmax(205px, .55fr); align-items: start; gap: 15px; }
+
+.steps {
+  --swing: clamp(30px, 8vw, 62px);
+  --node-radius: 34px;
+  --step-height: 112px;
+  position: relative; isolation: isolate; padding: 9px 0; margin: 0; list-style: none;
+}
+[data-style="glass"] .steps {
+  background:
+    radial-gradient(ellipse at 30% 30%, var(--soft), transparent 55%),
+    radial-gradient(ellipse at 78% 78%, var(--soft), transparent 54%),
+    var(--panel);
+}
+.step { position: relative; min-height: var(--step-height); }
+.trail-connector {
+  position: absolute; z-index: -1; top: 50%; left: calc(50% - var(--swing));
+  width: calc(2 * var(--swing)); height: 100%; overflow: visible;
+  fill: none; stroke: color-mix(in srgb, var(--muted) 32%, transparent); stroke-width: 8px; stroke-linecap: round;
+}
+.step:nth-child(even) .trail-connector { transform: scaleX(-1); }
+.step.complete .trail-connector { stroke: var(--accent-strong); }
+
+.step-link {
+  position: absolute; top: 0; bottom: 0;
+  left: calc(50% - var(--swing) - var(--node-radius)); right: 9px;
+  display: flex; align-items: center; gap: 11px;
+  border: 0; padding: 0; background: none; text-align: left;
+}
+.step:nth-child(even) .step-link {
+  left: 9px; right: calc(50% - var(--swing) - var(--node-radius));
+  flex-direction: row-reverse; text-align: right;
+}
+.step-node {
+  position: relative; display: grid; place-items: center; flex: none;
+  width: calc(2 * var(--node-radius)); aspect-ratio: 1; border-radius: 50%;
+  color: var(--muted); background: var(--base); border: 2px solid var(--line);
+  box-shadow: var(--small-shadow); transition: transform 170ms ease;
+}
+.step-node > .icon { width: 26px; height: 26px; }
+.step.complete .step-node {
+  color: #103a29; background: linear-gradient(145deg, #c0f8d7, #5bd9a0);
+  border-color: #b0efce; box-shadow: 0 4px 15px #68d5a44d, inset 0 1px 4px #fff8;
+}
+.step.current .step-node {
+  color: #432c06; background: linear-gradient(145deg, #fff3b5, #f4bb44);
+  border-color: #fff1a4; box-shadow: 0 0 0 5px #f1bb4433, 0 5px 18px #edab4159, inset 0 1px 4px #fff9;
+}
+.step-check {
+  position: absolute; right: -3px; top: -3px; display: grid; place-items: center;
+  width: 21px; height: 21px; border-radius: 50%; background: #14523a; color: #fff;
+  border: 1px solid #b0efce;
+}
+.step-check .icon { width: 13px; height: 13px; }
+button.step-link:enabled:hover .step-node { transform: scale(1.08); }
+.step-link:focus-visible { outline: none; }
+.step-link:focus-visible .step-node { outline: 2px solid var(--accent); outline-offset: 5px; }
+.step-details { display: grid; gap: 3px; font-size: .9rem; line-height: 1.25; }
 .step-details strong { font-weight: 800; }
-.step-details small { font-size: .82rem; color: var(--muted); }
-.step-status { color: var(--muted); font-size: .72rem; font-weight: 800; text-align: right; }
-.step.current .step-status, .step.complete .step-status, .step-arrow { color: var(--accent); }
+.step-details small { font-size: .74rem; color: var(--muted); font-weight: 750; }
+.step.current .step-details small { color: var(--accent); }
+.trail-finish.locked .step-details { color: var(--muted); }
+
+.track-next { padding: 20px; border-radius: 18px; }
+.track-next-label { display: flex; align-items: center; gap: 7px; color: var(--accent); font-size: .78rem; font-weight: 800; }
+.track-next-label .icon { width: 16px; height: 16px; }
+.track-next h2 { margin: 7px 0 5px; font-size: 1.17rem; line-height: 1.25; }
+.track-next p { font-size: .86rem; }
+.track-next .primary { margin-top: 15px; }
 
 .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; margin: 15px 0; }
 .stats > div { display: grid; gap: 2px; align-content: start; border: 1px solid var(--line); border-radius: 12px; background: var(--well); padding: 10px 11px; }
@@ -275,7 +337,8 @@ h1 { font-size: clamp(2rem, 3.7vw, 3.2rem); font-weight: 800; letter-spacing: -.
   .dashboard-main { margin-top: 25px; }
   .dashboard-main > .daily { margin-top: 0; }
   .hero-art img { height: 166px; }
-
+  .track-layout { grid-template-columns: minmax(0, 1fr); }
+  .steps { --step-height: 93px; --node-radius: 29px; }
 }
 @media (max-width: 480px) {
   .brand { font-size: 23px; }
@@ -292,15 +355,14 @@ h1 { font-size: clamp(2rem, 3.7vw, 3.2rem); font-weight: 800; letter-spacing: -.
   .hero-art { width: 36%; }
   .hero-art img { width: 99%; height: 143px; }
   .subject-grid, .progress-subjects { grid-template-columns: minmax(0, 1fr); }
-  .step { grid-template-columns: 41px 1fr; gap: 9px; }
-  .step:not(:last-child)::before { left: 20px; }
-  .step-node { width: 39px; height: 39px; border-radius: 11px; }
-  .step-card { padding-inline: 10px; gap: 6px; }
-  .step-arrow { width: 14px; }
+  .track-heading { padding: 13px; }
+  .track-progress { flex-basis: 100%; margin-left: 0; }
+  .steps { --swing: 37px; }
+
 }
 
 @media (prefers-reduced-motion: reduce) {
   .enter, .feedback, .result .small-icon { animation: none; }
-  .subject-card, .option { transition: none; }
-  .subject-card:hover { transform: none; }
+  .subject-card, .option, .step-node { transition: none; }
+  .subject-card:hover, button.step-link:enabled:hover .step-node { transform: none; }
 }

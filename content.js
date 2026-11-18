@@ -118,6 +118,46 @@ export const subjects = [
             explanation: 'As diferenças são +2, +3 e +4. A próxima é +5, então 11 + 5 = 16.'
           }
         ]
+      },
+      {
+        id: 'alternancia',
+        title: 'Padrões alternados',
+        description: 'Identifique regras que se alternam na mesma sequência.',
+        icon: 'pen',
+        questions: [
+          {
+            prompt: 'Qual número vem depois em 3, 8, 4, 9, 5, 10, …?',
+            options: ['6', '8', '11', '15'],
+            answer: 0,
+            explanation: 'A sequência alterna +5 e −4. Depois de somar 5 a 5 e chegar a 10, subtraímos 4 para chegar a 6.'
+          },
+          {
+            prompt: 'Qual é o próximo termo de 1, 10, 2, 20, 3, 30, …?',
+            options: ['4', '10', '31', '40'],
+            answer: 0,
+            explanation: 'As posições ímpares trazem 1, 2, 3, … e as pares trazem 10, 20, 30, …. O próximo termo ocupa uma posição ímpar, portanto é 4.'
+          }
+        ]
+      },
+      {
+        id: 'sequencias-prova',
+        title: 'Prática de prova',
+        description: 'Combine padrões em questões de revisão.',
+        icon: 'flag',
+        questions: [
+          {
+            prompt: 'Qual alternativa completa a sequência 2, 5, 10, 17, 26, …?',
+            options: ['31', '35', '36', '37'],
+            answer: 3,
+            explanation: 'As diferenças são 3, 5, 7 e 9. A próxima é 11, então 26 + 11 = 37.'
+          },
+          {
+            prompt: 'Em 2, 4, 3, 9, 4, 16, …, cada par tem um número seguido de seu quadrado. Quais são os próximos dois termos?',
+            options: ['5 e 20', '5 e 25', '6 e 24', '6 e 36'],
+            answer: 1,
+            explanation: 'Os primeiros termos dos pares são 2, 3 e 4. O próximo é 5, seguido de seu quadrado, 25.'
+          }
+        ]
       }
     ]
   }
