@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="pt-BR" data-style="glass" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1924">
+  <meta name="description" content="Rumo — trilha de estudo para concursos públicos.">
+  <title>Rumo | Estude para concursos</title>
+  <link rel="icon" href="assets/mascote.webp" type="image/webp">
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#trilha" aria-label="Rumo, trilha de estudos"><span class="brand-mark" data-icon="compass"></span>Rumo<span class="brand-dot">.</span></a>
+      <nav class="nav" aria-label="Seções principais">
+        <a href="#trilha" data-page="trilha"><span data-icon="route"></span>Trilha</a>
+        <a href="#revisao" data-page="revisao"><span data-icon="refresh"></span>Revisão</a>
+        <a href="#progresso" data-page="progresso"><span data-icon="chart"></span>Progresso</a>
+      </nav>
+      <div class="appearance">
+        <div class="style-switch" role="group" aria-label="Estilo visual">
+          <button type="button" data-style-choice="glass" aria-label="Glassmorphism"><span data-icon="layers"></span>Vidro</button>
+          <button type="button" data-style-choice="neo" aria-label="Neomorfismo"><span data-icon="box"></span>Neomórfico</button>
+        </div>
+        <button class="theme-switch" type="button" id="theme-toggle"></button>
+      </div>
+    </div>
+  </header>
+  <main id="screen" class="shell"></main>
+</body>
+</html>
